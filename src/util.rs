@@ -157,7 +157,8 @@ pub fn parse_attr<'element, Select: Iterator<Item = scraper::element_ref::Elemen
                 .attr(attr)
                 .map(|value| value.to_string())
                 .ok_or_else(|| ParseError::MissingAttribute(attr.to_string()))
-        }).and_then(std::convert::identity)
+        })
+        .and_then(std::convert::identity)
 }
 /// Helper method to attempt to get a unique element contained in an `Iterator`.
 pub fn get_unique_element<Element, I: Iterator<Item = Element>>(
