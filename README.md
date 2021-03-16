@@ -1,5 +1,9 @@
 # scrappy_do
 
+[![Build Status](https://github.com/MattBelle/scrappy-do/workflows/Rust/badge.svg)](https://github.com/MattBelle/scrappy-do/actions)
+[![Documentation](https://docs.rs/scrappy_do/badge.svg)](https://docs.rs/scrappy-do)
+[![Current Crates.io Version](https://img.shields.io/crates/v/scrappy-do.svg)](https://crates.io/crates/scrappy-do)
+
 This is a concurrent asynchronous webscraping framework for Rust.
 
 # Goals
