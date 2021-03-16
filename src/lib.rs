@@ -1,11 +1,9 @@
-#![feature(result_flattening)]
-
 //! A crate to asynchronously crawl web pages. This crate was largely inspired by the python module
 //! `scrapy`, but updated to take advantage of Rust's safety, performance, and expressiveness.
 //!
 //! # About
 //! This crate is built around the idea of transforming HTTP responses into scraped `Items`
-//! throught dynamically linked handlers. The caller defines the handlers and the crate takes care
+//! through dynamically linked handlers. The caller defines the handlers and the crate takes care
 //! of the scheduling.
 //!
 //! # Basic Example

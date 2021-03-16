@@ -135,7 +135,7 @@ impl Form {
     ///
     /// # Arguments
     /// - `client`: Used to generate the `Request` object.
-    /// - `url`: The host that will recieve the form request upon execution.
+    /// - `url`: The host that will receive the form request upon execution.
     pub fn generate_request(&self, client: &Client, url: Url) -> Result<Request, reqwest::Error> {
         client
             .post(url.join(&self.path).unwrap().as_str())
@@ -144,7 +144,7 @@ impl Form {
     }
 }
 
-/// Helper method to attempt to retrieve an attibute value from a unique element contained in the
+/// Helper method to attempt to retrieve an attribute value from a unique element contained in the
 /// `Select`.
 pub fn parse_attr<'element, Select: Iterator<Item = scraper::element_ref::ElementRef<'element>>>(
     select: &'element mut Select,
@@ -157,8 +157,7 @@ pub fn parse_attr<'element, Select: Iterator<Item = scraper::element_ref::Elemen
                 .attr(attr)
                 .map(|value| value.to_string())
                 .ok_or_else(|| ParseError::MissingAttribute(attr.to_string()))
-        })
-        .flatten()
+        }).and_then(std::convert::identity)
 }
 /// Helper method to attempt to get a unique element contained in an `Iterator`.
 pub fn get_unique_element<Element, I: Iterator<Item = Element>>(
