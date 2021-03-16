@@ -1,8 +1,11 @@
 [package]
 name = "scrappy_do_codegen"
 version = "0.1.0"
-authors = ["Matt Belle <matt.belle@blackboard.com>"]
+authors = ["Matt Belle <mattbelle17@gmail.com>"]
 edition = "2018"
+license-file = "../LICENSE.md"
+description = "Macros used by scrappy-do."
+repository = "https://github.com/MattBelle/scrappy-do"
 
 [lib]
 proc-macro = true

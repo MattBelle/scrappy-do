@@ -1,11 +1,16 @@
 [package]
 name = "scrappy_do"
 version = "0.1.0"
-authors = ["Matt Belle <matt.belle@blackboard.com>"]
+authors = ["Matt Belle <mattbelle17@gmail.com>"]
 edition = "2018"
+license-file = "LICENSE.md"
+description = "A concurrent asynchronous webscraping framework."
+repository = "https://github.com/MattBelle/scrappy-do"
+keywords = ["async", "web", "http", "framework", "tokio"]
+categories = ["asynchronous", "concurrency", "network-programming", "web-programming"]
 
 [dependencies]
-scrappy_do_codegen = { path = "./scrappy_do-codegen/" }
+scrappy_do_codegen = { path = "./scrappy_do-codegen/", version = "0.1.0" }
 futures = "0.3"
 reqwest = "^0.11"
 tokio = { version = "1", features = ["sync", "rt"] }
