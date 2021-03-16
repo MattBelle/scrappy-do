@@ -177,13 +177,11 @@ fn impl_handle(args: TokenStream, ast: ItemFn) -> Result<TokenStream> {
         // this is a struct method (self + client, context, respone, and logger)
         5 => &ast.sig.inputs[3],
         // this is a bare function
-        _ => &ast.sig.inputs[2]
+        _ => &ast.sig.inputs[2],
     };
     let context_ty = match &context_arg {
-            FnArg::Typed(pat_type) => Ok(pat_type.ty.clone()),
-            FnArg::Receiver(arg) => {
-                Err(error!(arg, "unexpected argument"))
-            }
+        FnArg::Typed(pat_type) => Ok(pat_type.ty.clone()),
+        FnArg::Receiver(arg) => Err(error!(arg, "unexpected argument")),
     }?;
 
     let mut block = ast.block;
