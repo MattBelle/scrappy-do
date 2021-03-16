@@ -21,6 +21,7 @@ jobs:
         profile: minimal
         toolchain: nightly
         components: rustfmt, clippy
+    - uses: actions/checkout@v2
     - name: Build
       run: cargo +nightly build --verbose
     - name: Run tests
