@@ -17,7 +17,6 @@
 //! use futures::stream::StreamExt; // Provides friendly methods for streams
 //! use reqwest::{Client, Response};
 //! use scrappy_do::{handle, wrap};
-//! use slog::Logger;
 //! use url::Url;
 //!
 //! // This is what we are trying to create from the web pages
@@ -33,7 +32,6 @@
 //!     client: Client,
 //!     response: Response,
 //!     context: SomeContext,
-//!     logger: Logger,
 //! ) {
 //!
 //!     // Process the response....
@@ -51,7 +49,7 @@
 //!         .unwrap();
 //!
 //!     // Build the spider
-//!     let spider = scrappy_do::Spider::new(client.clone(), None);
+//!     let spider = scrappy_do::Spider::new(client.clone());
 //!
 //!     let items = spider
 //!         // A web requires an initial address, handler, and context in order to be created. All
@@ -91,7 +89,6 @@
 //! use futures::stream::StreamExt; // Provides friendly methods for streams
 //! use reqwest::{Client, Response};
 //! use scrappy_do::{handle, wrap};
-//! use slog::Logger;
 //! use url::Url;
 //!
 //! // This is what we are trying to create from the web pages
@@ -108,7 +105,6 @@
 //!     client: Client,
 //!     response: Response,
 //!     context: SomeContext,
-//!     logger: Logger,
 //! ) {
 //!
 //!     // Process the response....
@@ -135,7 +131,6 @@
 //!     client: Client,
 //!     response: Response,
 //!     context: SomeContext,
-//!     logger: Logger,
 //! ) {
 //!
 //!     // Process the response....
@@ -153,7 +148,7 @@
 //!         .unwrap();
 //!
 //!     // Build the spider
-//!     let spider = scrappy_do::Spider::new(client.clone(), None);
+//!     let spider = scrappy_do::Spider::new(client.clone());
 //!
 //!     let items = spider
 //!         // A web requires an initial address, handler, and context in order to be created. All

@@ -174,8 +174,8 @@ fn convert_fn_signature(sig: Signature, item_ty: Type, context_ty: Type) -> Sign
 fn impl_handle(args: TokenStream, ast: ItemFn) -> Result<TokenStream> {
     let HandleArgs { item_ty } = syn::parse2(args)?;
     let context_arg = match ast.sig.inputs.len() {
-        // this is a struct method (self + client, context, respone, and logger)
-        5 => &ast.sig.inputs[3],
+        // this is a struct method (self + client, context, and response)
+        4 => &ast.sig.inputs[3],
         // this is a bare function
         _ => &ast.sig.inputs[2],
     };

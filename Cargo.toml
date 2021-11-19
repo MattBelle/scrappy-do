@@ -1,6 +1,6 @@
 [package]
 name = "scrappy_do"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Matt Belle <mattbelle17@gmail.com>"]
 edition = "2018"
 license-file = "LICENSE.md"
@@ -10,7 +10,7 @@ keywords = ["async", "web", "http", "framework", "tokio"]
 categories = ["asynchronous", "concurrency", "network-programming", "web-programming"]
 
 [dependencies]
-scrappy_do_codegen = { path = "./scrappy_do-codegen/", version = "0.1.0" }
+scrappy_do_codegen = { path = "./scrappy_do-codegen/", version = "0.2.0" }
 async-stream = "0.3"
 futures = "0.3"
 pin-project = "1"

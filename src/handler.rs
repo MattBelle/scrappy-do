@@ -18,7 +18,6 @@ use tokio::sync::mpsc::Receiver;
 ///
 /// use reqwest::{Client, Response};
 /// use scrappy_do::handle;
-/// use slog::Logger;
 ///
 /// // This is what we are trying to create from the web pages
 /// #[derive(Debug)]
@@ -33,7 +32,6 @@ use tokio::sync::mpsc::Receiver;
 ///     client: Client,
 ///     response: Response,
 ///     context: SomeContext,
-///     logger: Logger,
 /// ) {
 ///
 ///     // Process the response....
@@ -60,7 +58,6 @@ use tokio::sync::mpsc::Receiver;
 ///
 /// use reqwest::{Client, Response};
 /// use scrappy_do::{Handler, handle};
-/// use slog::Logger;
 /// use std::fmt;
 ///
 /// // This is what we are trying to create from the web pages
@@ -87,8 +84,7 @@ use tokio::sync::mpsc::Receiver;
 ///     fn handle(self: Box<Self>,
 ///               client: Client,
 ///               response: Response,
-///               context: SomeContext,
-///               logger: Logger) {
+///               context: SomeContext) {
 ///
 ///         // Process the response....
 ///
