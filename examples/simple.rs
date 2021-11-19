@@ -9,7 +9,8 @@ use scrappy_do::{
     util::{get_unique_element, parse_attr},
     wrap, Callback, Spider,
 };
-use slog::{info, Logger};
+use tracing::info;
+use tracing_subscriber;
 
 // This is the `Item` eg what we are trying to create from the web pages
 #[derive(Debug)]
@@ -20,7 +21,7 @@ struct Quote {
 }
 
 #[handle(item = Quote)]
-fn parse_quotes(client: Client, response: Response, context: u8, logger: Logger) {
+fn parse_quotes(client: Client, response: Response, context: u8) {
     // We grab the URL first because grabbing the body consumes the response
     let url = response.url().clone();
 
@@ -68,7 +69,7 @@ fn parse_quotes(client: Client, response: Response, context: u8, logger: Logger)
     // We only want to scrape the first 2 pages of quotes
     if context < 2 {
         if let Some(link) = next_page {
-            info!(logger, "Found next page"; "link" => &link);
+            info!(link = %link, "Found next page");
             let callback = Callback::new(
                 wrap!(parse_quotes),
                 client
@@ -90,12 +91,12 @@ fn parse_quotes(client: Client, response: Response, context: u8, logger: Logger)
 // Sets up multithreaded runtime
 #[tokio::main]
 async fn main() {
+    tracing_subscriber::fmt::init();
+
     // Build the HTTP client
     let client = reqwest::Client::builder().build().unwrap();
 
-    // Build the spider passing None as the logger because we don't feel like configuring slog. A
-    // logger compatible with the `log` crate will be created and passed to the handler's functions.
-    let spider = Spider::new(client.clone(), None);
+    let spider = Spider::new(client.clone());
 
     let items = spider
         // A web requires an initial address, handler, and context in order to be created. All

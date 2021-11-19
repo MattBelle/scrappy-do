@@ -1,6 +1,5 @@
 use crate::callback::Indeterminate;
 use reqwest::{Client, Response};
-use slog::Logger;
 use std::fmt::{self, Debug, Display};
 use tokio::sync::mpsc::Receiver;
 
@@ -104,7 +103,6 @@ pub trait Handler<I: Debug, C>: Send + Sync + Debug + Display {
         client: Client,
         response: Response,
         context: C,
-        logger: Logger,
     ) -> Receiver<Indeterminate<I, C>>;
 }
 
@@ -117,10 +115,7 @@ pub struct HandlerImpl<F> {
 impl<F> HandlerImpl<F> {
     pub fn new<I: Debug, C>(function: F, function_name: &'static str) -> Self
     where
-        F: FnOnce(Client, Response, C, Logger) -> Receiver<Indeterminate<I, C>>
-            + Send
-            + Sync
-            + Copy,
+        F: FnOnce(Client, Response, C) -> Receiver<Indeterminate<I, C>> + Send + Sync + Copy,
     {
         Self {
             function,
@@ -145,15 +140,14 @@ impl<F> Display for HandlerImpl<F> {
 
 impl<I: Debug, C, F> Handler<I, C> for HandlerImpl<F>
 where
-    F: FnOnce(Client, Response, C, Logger) -> Receiver<Indeterminate<I, C>> + Send + Sync + Copy,
+    F: FnOnce(Client, Response, C) -> Receiver<Indeterminate<I, C>> + Send + Sync + Copy,
 {
     fn handle(
         self: Box<Self>,
         client: Client,
         response: Response,
         context: C,
-        logger: Logger,
     ) -> Receiver<Indeterminate<I, C>> {
-        (self.function)(client, response, context, logger)
+        (self.function)(client, response, context)
     }
 }

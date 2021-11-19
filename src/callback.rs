@@ -1,6 +1,6 @@
 use crate::handler::Handler;
 use reqwest::{Client, Request};
-use slog::{trace, Logger};
+use tracing::{trace, instrument};
 use std::fmt::{self, Debug, Display};
 use tokio::sync::mpsc::Receiver;
 
@@ -38,7 +38,7 @@ pub struct Callback<I, C> {
     context: C,
 }
 
-impl<I: Debug, C> Callback<I, C> {
+impl<I: Debug, C: Debug> Callback<I, C> {
     /// Construct a new `Callback` to be processed.
     ///
     /// # Arguments
@@ -62,15 +62,15 @@ impl<I: Debug, C> Callback<I, C> {
     }
 
     /// Execute the callback with the provided client and logger.
+    #[instrument]
     pub(crate) async fn run(
         self,
         client: Client,
-        logger: Logger,
     ) -> Result<Receiver<Indeterminate<I, C>>, reqwest::Error> {
-        trace!(logger, "Executing request"; "request" => ?self.request);
+        trace!(request = ?self.request, "Executing request");
         let resp = client.execute(self.request).await?;
-        trace!(logger, "Got response"; "response" => ?resp);
-        let result = self.handler.handle(client, resp, self.context, logger);
+        trace!(response = ?resp, "Got response");
+        let result = self.handler.handle(client, resp, self.context);
         Ok(result)
     }
 }
